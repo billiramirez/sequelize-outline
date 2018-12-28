@@ -60,3 +60,14 @@ Product.findById(prodId)
     })
     .catch(err => console.log(err));
 
+// DELETE A RECORD
+
+Product.findById(prodId)
+    .then(product =>{
+        product.destroy();
+    })
+    .then(res => {
+        console.log("RECORD DESTROYED");
+        // here maybe render a view or redirect
+    })
+    .catch(err => console.log(err));
