@@ -38,4 +38,25 @@ Product.findAll({where: { id: prodId }})
     })
     .catch(err => console.log(err));
 
+// updating a record
+
+// The fields
+const title = "phonew2";
+const description = "this is a good iphone";
+const urlAvatar = "http://www.google.com?lkajlfjalfkfkaasfa.png";
+const price = 324;
+
+Product.findById(prodId)
+    .then(product => {
+        product.title = title;
+        product.urlAvatar = urlAvatar;
+        product.price = price;
+        product.description = description;
+        return product.save();
+    })
+    .then(result => {
+        console.log('updated product');
+        // here maybe render a view or redirect
+    })
+    .catch(err => console.log(err));
 
