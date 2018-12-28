@@ -6,6 +6,7 @@ const urlAvatar = "http://www.google.com?lkajlfjalfkfkaasfa.png";
 const price = 32;
 // Let's create a new Product
 
+// THIS createProduct METHOD WAS CREATED BY SEQUELIZE BY IT'S OWN, CAUSE THE ASSOCIATIONS
     req.user.createProduct({
         title: title,
         price: price,
