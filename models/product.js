@@ -1,6 +1,6 @@
 const Sequelize = require('sequelize');
 
-const sequelize = require('../database');// the configuration, now it's ready to defining model.
+const sequelize = require('../database'); // the configuration, now it's ready to defining model.
 
 // Let's define a model
 

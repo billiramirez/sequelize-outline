@@ -7,22 +7,22 @@ const price = 32;
 // Let's create a new Product
 
 // THIS createProduct METHOD WAS CREATED BY SEQUELIZE BY IT'S OWN, CAUSE THE ASSOCIATIONS
-    req.user.createProduct({
+req.user.createProduct({
         title: title,
         price: price,
         urlAvatar: urlAvatar,
         description: description
     })
-        .then(res => console.log(res))
-        .catch(err => console.log(err));
+    .then(res => console.log(res))
+    .catch(err => console.log(err));
 
 // Retrieving data
 
 Product.findAll()
     .then(products => console.log(products))
-    .catch(err =>  console.log(err));
+    .catch(err => console.log(err));
 
-    
+
 
 // Retreive a single record
 
@@ -32,7 +32,11 @@ Product.findById(prodId)
 
 // alternative, this return an array
 
-Product.findAll({where: { id: prodId }})
+Product.findAll({
+        where: {
+            id: prodId
+        }
+    })
     .then(products => {
         res.render('shop/product-detail', {
             product: products[0],
@@ -67,7 +71,7 @@ Product.findById(prodId)
 // DELETE A RECORD
 
 Product.findById(prodId)
-    .then(product =>{
+    .then(product => {
         product.destroy();
     })
     .then(res => {
