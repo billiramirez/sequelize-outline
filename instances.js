@@ -55,9 +55,33 @@ Task
     //   .create() omits that requirement altogether and 
     //   automatically stores your instance's data once called.   
 
-    Task.create({title: 'foo', description: 'bar', deadline: new Date()})
-        .then(task=>{
-            // do some stuff with the task
-        })
+Task.create({title: 'foo', description: 'bar', deadline: new Date()})
+    .then(task=>{
+        // do some stuff with the task
+    })
 
+    // It is also possible to define which attributes can
+    //  be set via the create method. This can be especially
+    //   very handy if you create database entries based on a 
+    //   form which can be filled by a user. Using that would 
+    //   for example allow you to restrict the User model to
+    //    set only a username and an address but not an admin
+    //     flag:
+
+User.create({username: 'barfooz', isAdmin: true}, {fields:['username']})
+    .then(user=> {
+        console.log(user.get({plain: true}));
+    })
+
+    // Updating / Saving / Persisting an instance
+
+// way 1
+
+task.title = 'a very different title now';
+task.save().then(()=>{});
+
+// way 2 
+
+task.update({title: 'a very different title now'})
+    .then(()=>{})
 
