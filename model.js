@@ -103,3 +103,29 @@ module.exports = {
 }
 
 
+/************************VALIDATIONS******************** */
+
+
+const Pub = Sequelize.define('pub',{
+    name: {type: Sequelize.STRING},
+    address: {type: Sequelize.STRING},
+    latitude: {
+        type: Sequelize.INTEGER,
+        allowNull: true,
+        defaultValue: null,
+        validate: { min: -90, max: 90}
+    },
+    longitude: {
+        type: Sequelize.INTEGER,
+        allowNull: true,
+        defaultValue: null,
+        validate: { min: -180, max: 180}
+    },
+    validate: {
+        bothCoordsOrNone(){
+            if((this.latitude === null) !== (this.longitude === null)){
+                throw new Error('Require either both latitude and longitude or neither')
+            }
+        }
+    }
+})
