@@ -58,3 +58,23 @@ const UserRole = this.sequelize.define('userRole', {
 
 User.belongsTo(UserRole, {as: 'role'});
 // Adds roleId to user rather than userRoleId
+
+
+/*************************Target keys*************************/
+
+// The target key is te column on the target model that the foreign key
+// column on the source model points to. By default key for a belongsTo relation
+// will be the target model's primary key. To define a custom column, use the 
+// targetKey option
+
+const User = this.sequelize.define('user',{
+    // attributes
+});
+
+const Company = this.sequelize.define('company',{
+    // attributes
+});
+
+User.belongsTo(Company,{foreignKey: 'fk_companyname', targetKey: 'name'});
+// Adds fk_companyname to user
+
