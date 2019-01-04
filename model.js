@@ -1,3 +1,5 @@
+import { lstat } from "fs";
+
 // Model definition
 
 // to define mappings between a model and a table, use the
@@ -70,3 +72,34 @@ const Foo = sequelize.define('foo', {
 // In the model options you can specify the unique and index as well
 // {someUnique: {type: Sequelize.STRING}},
 //     {indexes: [ {unique: true, fields: ['someUnique']}]}
+
+
+
+/************************TIMESTAMPS******************** */
+
+// By default, Sequelize will add the attributes createdAt and 
+// updatedAt to your model so you will be able to know when 
+// the datbase entry went into the db and when it was updated lstat
+
+// Note that if you are using Sequelize migrations you will need to add 
+// the createdAt and updatedAt fields to your migration definition
+
+module.exports = {
+    up(queryInterface, Sequelize){
+        return queryInterface.createTable('my-table',{
+            id: {
+                type: Sequelize.INTEGER,
+                primaryKey: true,
+                autoIncrement: true
+            },
+            // timestamps
+            createdAt: Sequelize.DATE,
+            updatedAt: Sequelize.DATE
+        })
+    },
+    down(queryInterface, Sequelize){
+        return queryInterface.dropTable('my-table');
+    },
+}
+
+
