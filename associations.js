@@ -78,3 +78,71 @@ const Company = this.sequelize.define('company',{
 User.belongsTo(Company,{foreignKey: 'fk_companyname', targetKey: 'name'});
 // Adds fk_companyname to user
 
+/*************************Has One*************************/
+
+// HasOne associations are associations where the foreign
+//  key for the one-to-one relation exists on the target model.
+
+const User = sequelize.define('user', {
+    // ...
+});
+
+const Project = sequelize.define('project',{
+    // ...
+});
+
+// One way association
+Project.hasOne(User);
+
+/*
+  In this example hasOne will add an attribute projectId to the User model!
+  Furthermore, Project.prototype will gain the methods getUser and setUser according
+  to the first parameter passed to define. If you have underscore style
+  enabled, the added attribute will be project_id instead of projectId.
+
+  The foreign key will be placed on the users table.
+
+  You can also define the foreign key, e.g. if you already have an existing
+  database and want to work on it:
+*/
+
+Project.hasOne(User, { foreignKey: 'initiator_id' })
+
+/*
+  Because Sequelize will use the model's name (first parameter of define) for
+  the accessor methods, it is also possible to pass a special option to hasOne:
+*/
+
+Project.hasOne(User, { as: 'Initiator' })
+// Now you will get Project.getInitiator and Project.setInitiator
+
+// Or let's define some self references
+
+const Person = sequelize.define('person', {
+    // ...
+});
+
+Person.hasOne(Person, {as: 'Father'});
+// this will add the attribute FatherId to Person
+
+// also possible:
+
+Person.hasOne(Person, {as: 'Father', foreignKey: 'DadId'});
+// This will add the attribute DadId to Person
+
+// In both cases you will be able to do:
+Person.setFather
+Person.getFather
+
+// If you need to join a table twice you can double join the same table
+Team.hasOne(Game, {as: 'HomeTeam', foreignKey : 'homeTeamId'});
+Team.hasOne(Game, {as: 'AwayTeam', foreignKey : 'awayTeamId'});
+
+Game.belongsTo(Team);
+
+/**
+ * Even though it is called a HasOne association, for most 
+ * 1:1 relations you usually want the BelongsTo association 
+ * since BelongsTo will add the foreignKey on the 
+ * source where hasOne will add on the target.
+ */
