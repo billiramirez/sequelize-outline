@@ -83,5 +83,24 @@ task.save().then(()=>{});
 // way 2 
 
 task.update({title: 'a very different title now'})
-    .then(()=>{})
+    .then(()=>{});
 
+// Its also possible to define which attributes should be saved
+// when calling save, by passing an array of column namespace. 
+// This is useful when you set attributes based on a previously
+// defined object. E.g if you get the values of an object via a 
+// form of a web app. Furthermore this is used internally for update. 
+// this is how it looks like:
+
+task.title = 'foo';
+task.description = 'baaaar';
+task.save({fields: ['title']})
+    .then(()=>{
+        // Tittle will be updated but description is the very same as before
+    });
+
+// The equivalente call using update looks like this:
+task.update({title: 'fooo', description: ' new decription'}, {fields: ['title']})
+    .then(()=>{
+        // Tittle will be updated but description is the very same as before
+    })
