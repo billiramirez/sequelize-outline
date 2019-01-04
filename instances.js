@@ -73,7 +73,7 @@ User.create({username: 'barfooz', isAdmin: true}, {fields:['username']})
         console.log(user.get({plain: true}));
     })
 
-    // Updating / Saving / Persisting an instance
+/**********Updating-Saving-Persisting an instance */
 
 // way 1
 
@@ -104,3 +104,19 @@ task.update({title: 'fooo', description: ' new decription'}, {fields: ['title']}
     .then(()=>{
         // Tittle will be updated but description is the very same as before
     })
+
+
+/**Destroying-Deleting persisten instances */
+
+// Once you created an object and got a reference to interface, 
+// you can delete it from the database. The relevant method is 
+// destroy
+
+Task.create({title: 'a task'})
+    .then(task => {
+        // do whatever you want
+        return task.destroy();
+    })
+    .then(()=>{
+        // the task has been destroyed
+    });
